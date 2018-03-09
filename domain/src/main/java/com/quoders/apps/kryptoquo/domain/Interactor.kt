@@ -4,18 +4,17 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.Executor
 
 
-abstract class Interactor<T, in Params>(val executor: Executor) {
+abstract class Interactor<T, in Params> {
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
-    abstract fun buildInteractor(params: Params): Observable<T>
+    abstract fun buildInteractor(params: Params?): Observable<T>
 
-    fun execute(observer: DisposableObserver<T>, params: Params) {
+    fun execute(observer: DisposableObserver<T>, params: Params?) {
         val observable: Observable<T> = buildInteractor(params)
-                .subscribeOn(Schedulers.from(executor))
+                .subscribeOn(Schedulers.newThread())
 
         disposables.add(observable.subscribeWith(observer))
     }
