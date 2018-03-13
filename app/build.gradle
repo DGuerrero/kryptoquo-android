@@ -45,10 +45,11 @@ dependencies {
 
     // Room
     implementation 'android.arch.persistence.room:runtime:1.0.0'
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+    implementation 'android.arch.persistence.room:rxjava2:1.0.0'
+    kapt "android.arch.persistence.room:compiler:1.0.0"
 
     // Paging
-    implementation 'android.arch.paging:runtime:1.0.0-alpha5'
+    implementation 'android.arch.paging:runtime:1.0.0-alpha6'
 
     //  Moshi
     compile 'com.squareup.moshi:moshi:1.5.0'
@@ -63,4 +64,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':domain')
+    compile project(path: ':data')
 }
