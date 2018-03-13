@@ -1,8 +1,10 @@
 package com.quoders.apps.kryptoquo.assets
 
+import android.app.AlertDialog
+import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.v4.widget.ContentLoadingProgressBar
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,19 +16,14 @@ import com.quoders.apps.kryptoquo.R
 import com.quoders.apps.kryptoquo.assets.dummy.DummyContent
 import com.quoders.apps.kryptoquo.assets.dummy.DummyContent.DummyItem
 
-/**
- * A fragment representing a list of Items.
- *
- *
- * Activities containing this fragment MUST implement the [OnListFragmentInteractionListener]
- * interface.
- */
-/**
- * Mandatory empty constructor for the fragment manager to instantiate the
- * fragment (e.g. upon screen orientation changes).
- */
-class AssetsCatalogFragment : Fragment() {
-    // TODO: Customize parameters
+class AssetsCatalogFragment : Fragment(), AssetsCatalogView {
+
+    lateinit var presenter: AssetsCatalogPresenter
+    lateinit var progressBar: ContentLoadingProgressBar
+    lateinit var recyclerViewAssets: RecyclerView
+
+    var dialog: AlertDialog? = null
+
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
 
@@ -36,23 +33,20 @@ class AssetsCatalogFragment : Fragment() {
         if (arguments != null) {
             mColumnCount = arguments.getInt(ARG_COLUMN_COUNT)
         }
+
+        presenter = AssetsCatalogPresenter(this)
+
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_assets_catalog_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater!!.inflate(R.layout.fragment_assets_catalog, container, false)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            val context = view.getContext()
-            val recyclerView = view as RecyclerView
-            if (mColumnCount <= 1) {
-                recyclerView.layoutManager = LinearLayoutManager(context)
-            } else {
-                recyclerView.layoutManager = GridLayoutManager(context, mColumnCount)
-            }
-            recyclerView.adapter = AssetsCatalogRecyclerViewAdapter(DummyContent.ITEMS, mListener)
-        }
+        recyclerViewAssets = view.findViewById(R.id.recyclerViewAssets)
+        recyclerViewAssets.layoutManager = LinearLayoutManager(view.context)
+        recyclerViewAssets.adapter = AssetsCatalogRecyclerViewAdapter(DummyContent.ITEMS, mListener)
+
+        progressBar = view.findViewById(R.id.progressBarAssetsCatalog)
+
         return view
     }
 
@@ -70,26 +64,53 @@ class AssetsCatalogFragment : Fragment() {
         mListener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
-     */
+    override fun onResume() {
+        super.onResume()
+        presenter.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.pause()
+    }
+
+    override fun showLoadingProgress() {
+        progressBar.show()
+    }
+
+    override fun hideLoadingProgress() {
+        progressBar.hide()
+    }
+
+    override fun showError() {
+        dismissDialog()
+
+        dialog = AlertDialog.Builder(activity)
+                .setTitle(R.string.dialog_error_generic_title)
+                .setMessage(R.string.dialog_error_generic_message)
+                .setNeutralButton(R.string.dialog_button_ok, null)
+                .create()
+
+        dialog!!.show()
+    }
+
+    private fun dismissDialog() {
+        dialog!!.dismiss()
+        dialog = null
+    }
+
+    override fun context(): Context {
+        return activity
+    }
+
     interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onListFragmentInteraction(item: DummyItem)
     }
 
     companion object {
 
-        // TODO: Customize parameter argument names
         private val ARG_COLUMN_COUNT = "column-count"
 
-        // TODO: Customize parameter initialization
         fun newInstance(columnCount: Int): AssetsCatalogFragment {
             val fragment = AssetsCatalogFragment()
             val args = Bundle()

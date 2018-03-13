@@ -1,7 +1,7 @@
 package com.quoders.apps.kryptoquo.assets
 
 import com.quoders.apps.kryptoquo.Presenter
-import com.quoders.apps.kryptoquo.domain.GetAssetsInteractor
+import com.quoders.apps.kryptoquo.domain.assets.GetAssetsInteractor
 import com.quoders.apps.kryptoquo.domain.model.KryptoAsset
 import io.reactivex.observers.DisposableObserver
 
@@ -11,19 +11,12 @@ class AssetsCatalogPresenter(private var view: AssetsCatalogView) : Presenter {
 
     override fun resume() {
         view.showLoadingProgress()
-        getAssetsInteractor.execute(AssetsCatalogObserver(), null)
+//        getAssetsInteractor.execute(AssetsCatalogObserver(), null)
     }
 
-    override fun pause() {
-        view.hideLoadingProgress()
-    }
+    override fun pause() = view.hideLoadingProgress()
 
     override fun destroy() {
-
-    }
-
-    fun displayAssetsCatalog() {
-
     }
 
     inner class AssetsCatalogObserver : DisposableObserver<List<KryptoAsset>>() {
@@ -32,7 +25,7 @@ class AssetsCatalogPresenter(private var view: AssetsCatalogView) : Presenter {
         }
 
         override fun onNext(t: List<KryptoAsset>) {
-            displayAssetsCatalog()
+
         }
 
         override fun onError(e: Throwable) {
