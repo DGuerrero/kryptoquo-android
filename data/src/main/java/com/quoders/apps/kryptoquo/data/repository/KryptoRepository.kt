@@ -1,6 +1,6 @@
-package com.quoders.apps.kryptoquo.domain.repository
+package com.quoders.apps.kryptoquo.data.repository
 
-import com.quoders.apps.kryptoquo.domain.model.KryptoAsset
+import com.quoders.apps.kryptoquo.data.model.local.AssetEntity
 import io.reactivex.Observable
 
 /**
@@ -11,5 +11,5 @@ interface KryptoRepository {
     /**
      * Get an Observable which will emit a List of {@link KryptoAsset}
      */
-    fun getAssets(): Observable<List<KryptoAsset>>
+    fun getAssets(): Observable<List<AssetEntity>>
 }

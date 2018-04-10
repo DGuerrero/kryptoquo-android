@@ -2,7 +2,7 @@ package model
 
 import com.squareup.moshi.Json
 
-class AssetResponseEntity {
+class AssetApiEntity {
     @Json(name = "asset_id")
     var assetId: String? = null
     @Json(name = "name")

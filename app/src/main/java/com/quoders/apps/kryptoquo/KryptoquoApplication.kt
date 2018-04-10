@@ -2,7 +2,7 @@ package com.quoders.apps.kryptoquo
 
 import android.app.Application
 import android.arch.persistence.room.Room
-import com.quoders.apps.kryptoquo.data.model.db.AppDatabase
+import com.quoders.apps.kryptoquo.data.db.AppDatabase
 
 class KryptoquoApplication : Application() {
 

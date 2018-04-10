@@ -1,7 +1,7 @@
 package com.quoders.apps.kryptoquo.assets
 
 import com.quoders.apps.kryptoquo.Presenter
-import com.quoders.apps.kryptoquo.domain.assets.GetAssetsInteractor
+import com.quoders.apps.kryptoquo.domain.Interactors.assets.GetAssetsInteractor
 import com.quoders.apps.kryptoquo.domain.model.KryptoAsset
 import io.reactivex.observers.DisposableObserver
 
@@ -11,7 +11,7 @@ class AssetsCatalogPresenter(private var view: AssetsCatalogView) : Presenter {
 
     override fun resume() {
         view.showLoadingProgress()
-//        getAssetsInteractor.execute(AssetsCatalogObserver(), null)
+        getAssetsInteractor.execute(AssetsCatalogObserver(), null)
     }
 
     override fun pause() = view.hideLoadingProgress()

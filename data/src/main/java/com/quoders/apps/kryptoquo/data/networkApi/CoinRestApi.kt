@@ -1,6 +1,6 @@
-package com.quoders.apps.kryptoquo.data.network
+package com.quoders.apps.kryptoquo.data.networkApi
 
-import model.AssetResponseEntity
+import model.AssetApiEntity
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -19,7 +19,7 @@ class CoinRestApi {
     }
 
 
-    fun getCoinAssets() : Call<AssetResponseEntity> {
+    fun getCoinAssets() : Call<AssetApiEntity> {
         return coinRestApi.getAssets()
     }
 }

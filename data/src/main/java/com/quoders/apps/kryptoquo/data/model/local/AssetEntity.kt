@@ -1,11 +1,11 @@
-package com.quoders.apps.kryptoquo.data.model.db
+package com.quoders.apps.kryptoquo.data.model.local
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.arch.persistence.room.ColumnInfo
 
 @Entity(tableName = "assets")
-class Asset {
+class AssetEntity {
 
     @PrimaryKey
     var assetId: String = ""

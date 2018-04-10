@@ -1,6 +1,7 @@
-package com.quoders.apps.kryptoquo.data.model.db
+package com.quoders.apps.kryptoquo.data.db
 
 import android.arch.persistence.room.*
+import com.quoders.apps.kryptoquo.data.model.local.AssetEntity
 import io.reactivex.Flowable
 
 
@@ -9,15 +10,15 @@ import io.reactivex.Flowable
 interface AssetDao {
 
     @Query("SELECT * FROM assets")
-    fun getAll(): List<Asset>
+    fun getAll(): List<AssetEntity>
 
     @Query("SELECT * from assets")
-    fun getAllFlowable(): Flowable<Asset>
+    fun getAllFlowable(): Flowable<AssetEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg asset: Asset)
-
+    fun insertAll(vararg assetEntity: AssetEntity)
 /*
+
     @Delete
     fun delete(assetId: String)
 */
