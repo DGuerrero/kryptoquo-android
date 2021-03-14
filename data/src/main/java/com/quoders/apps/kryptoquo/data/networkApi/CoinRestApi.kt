@@ -1,9 +1,8 @@
 package com.quoders.apps.kryptoquo.data.networkApi
 
-import model.AssetApiEntity
+import com.quoders.apps.kryptoquo.data.model.network.AssetApiEntity
 import retrofit2.Call
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 class CoinRestApi {
 
@@ -12,7 +11,7 @@ class CoinRestApi {
     init {
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://rest.coinapi.io/")
-                .addConverterFactory(MoshiConverterFactory.create())
+                //.addConverterFactory(MoshiConverterFactory.create())
                 .build()
 
         coinRestApi = retrofit.create(CoinApi::class.java)

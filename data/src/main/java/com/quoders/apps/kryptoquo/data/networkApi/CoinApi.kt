@@ -1,6 +1,6 @@
 package com.quoders.apps.kryptoquo.data.networkApi
 
-import model.AssetApiEntity
+import com.quoders.apps.kryptoquo.data.model.network.AssetApiEntity
 import retrofit2.Call
 import retrofit2.http.GET
 

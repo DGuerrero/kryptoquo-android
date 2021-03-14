@@ -1,7 +1,7 @@
 package com.quoders.apps.kryptoquo.data.db
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.quoders.apps.kryptoquo.data.model.local.AssetEntity
 
 
